@@ -11,6 +11,10 @@ RUN apk add --no-cache \
     && pecl install pcov \
     && docker-php-ext-enable pcov
 
+# Clean up
+RUN apk del linux-headers $PHPIZE_DEPS \
+    && rm -rf /tmp/pear
+
 # Configure Xdebug
 RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
@@ -20,6 +24,12 @@ RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.
 # Configure PCOV
 RUN echo "pcov.enabled=1" >> /usr/local/etc/php/conf.d/docker-php-ext-pcov.ini
 
-# Clean up
-RUN apk del linux-headers $PHPIZE_DEPS \
-    && rm -rf /tmp/pear
+
+# Copy your application files
+COPY . /var/www/html
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html
+
+    # Switch to non-root user
+USER www-data

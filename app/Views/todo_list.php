@@ -7,18 +7,15 @@
 </head>
 <body>
     <h1>Todo List</h1>
-    <?php if (!empty($todos)): ?>
-        <ul>
-        <?php foreach ($todos as $todo): ?>
-            <li>
-                <strong><?= esc($todo['task']) ?></strong>
-                (<?= esc($todo['status']) ?>)
-                <p><?= esc($todo['description']) ?></p>
-            </li>
-        <?php endforeach; ?>
-        </ul>
-    <?php else: ?>
-        <p>No todo items found.</p>
-    <?php endif; ?>
+
+    <h2>Debug Information:</h2>
+    <p>Xdebug: <?= $xdebug_enabled ?></p>
+    <p>PCOV: <?= $pcov_enabled ?></p>
+
+    <ul>
+    <?php foreach ($todos as $todo): ?>
+        <li><?= esc($todo['task']) ?></li>
+    <?php endforeach; ?>
+    </ul>
 </body>
 </html>
