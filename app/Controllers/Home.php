@@ -41,6 +41,12 @@ class Home extends BaseController
 
     public function index()
     {
+        phpinfo();
+        log_message('error', 'PHP version is not compatible. Current: ');
+
+        log_message('info', 'PHP version is not compatible. Current: 1111 ');
+
+
         $data = [
             'php_version' => $this->checkPHPVersion(),
             'required_extensions' => $this->checkRequiredExtensions(),
